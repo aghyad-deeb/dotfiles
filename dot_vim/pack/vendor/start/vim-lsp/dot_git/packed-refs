@@ -1,0 +1,20 @@
+# pack-refs with: peeled fully-peeled sorted 
+c2c166975efef9b4c450fef7da97a32ded87314d refs/remotes/origin/array-perf
+6b613f0daa1b042a6a8e16baba1a89be0a9a771a refs/remotes/origin/callbag-new
+293e8ae932ffb70fe444c89e7aa995eecbc5c1fa refs/remotes/origin/client-parse
+383f690e80ed9e2697eb40020532ef1f66c010e7 refs/remotes/origin/fix-completion-documentation-maxheight
+723fa3a0b6c36d5cda56f9fb9f803cc4f90b8eed refs/remotes/origin/fix-filter-text-correction
+1a84ed5f68b2ed0f35aa5999d24f96a89e6a515f refs/remotes/origin/fix-float
+49a886853e0b9e61fc1ac11802b77a601c266c6e refs/remotes/origin/fix-root_uri
+0616aab6aa1923b3cf35300a87b731fba9a7a464 refs/remotes/origin/fix-vim-popup-conceal
+1724318f4f838d7de31ad4146e5f4eed0348d317 refs/remotes/origin/get_kind_perf
+92a925346dc30074783a5125782e5bfe10c2245f refs/remotes/origin/lua-lsp-client
+04428c920002ac7cfacbecacb070a8af57b455d0 refs/remotes/origin/master
+231ab3cb230e599b83f4f2eaf4a1cc03a4cff4dd refs/remotes/origin/pr1078
+f03ddc3daef6cb6ec06cbf68ce5d5581f5e9ff57 refs/remotes/origin/revert-1567-use-new-health-api
+82796606f058c3f33eef6f5f881007cb62c04967 refs/remotes/origin/use-lua
+140775b3d595e92f6521bff49c62da6b5c6aa391 refs/tags/v0.1.0
+73bc4f1ceb4af56a9404a5f9d1c40e290fa16045 refs/tags/v0.1.1
+b6651468b78fb6e386a6eb4b7cca4479affbe853 refs/tags/v0.1.2
+0c2a9d34e0498988d5a783ae3da3ec8d8649613d refs/tags/v0.1.3
+3bca7e8c8a794fde38075e7df9d14c286d055a84 refs/tags/v0.1.4

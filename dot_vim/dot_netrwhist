@@ -1,0 +1,10 @@
+let g:netrw_dirhistmax  =10
+let g:netrw_dirhistcnt =8
+let g:netrw_dirhist_8='/Users/aghyaddeeb/Documents/coding/chatsh/chatsh_mine'
+let g:netrw_dirhist_7='/Users/aghyaddeeb/Documents/coding/arena/rl/.git'
+let g:netrw_dirhist_6='/Users/aghyaddeeb/Documents/coding/cs2241/project/learned_bloom_filters/.git'
+let g:netrw_dirhist_5='/Users/aghyaddeeb/Documents/Coding/cs61_tf/final_questions'
+let g:netrw_dirhist_4='/Users/aghyaddeeb/Documents/Coding/cs184/project/tank'
+let g:netrw_dirhist_3='/Users/aghyaddeeb/Documents/Coding/cs61_tf/psets_staff_sol/bomb/writeup'
+let g:netrw_dirhist_2='/Users/aghyaddeeb/Documents/Coding/MATS/iclr_clone'
+let g:netrw_dirhist_1='/Users/aghyaddeeb/Documents/Coding/orbit/iHealth/rnApp'

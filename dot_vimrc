@@ -1,0 +1,69 @@
+inoremap jk <ESC>
+syntax on
+" Function to detect and set indentation style
+"function! SetIndentation()
+"  " Check for the presence of tabs in the file
+"  if search('^\t', 'n')
+"    " Use tabs
+"    set noexpandtab
+"    set tabstop=4
+"    set shiftwidth=4
+"  else
+"    " Default to spaces
+"    set expandtab
+"    set tabstop=4
+"    set shiftwidth=4
+"  endif
+"endfunction
+"
+"" Run the function when opening a file
+"autocmd BufReadPost * call SetIndentation()
+set expandtab
+set tabstop=4
+set shiftwidth=4
+set termguicolors
+set number
+set colorcolumn=80
+filetype plugin indent on
+let theme = system('defaults read -g AppleInterfaceStyle')
+if theme =~ 'Dark'
+    colorscheme catppuccin_mocha
+else
+    colorscheme catppuccin_latte
+endif
+
+" lsp
+
+let g:lsp_diagnostics_enabled = 0
+
+if executable('pylsp')
+    au User lsp_setup call lsp#register_server({
+        \ 'name': 'pylsp',
+        \ 'cmd': {server_info->['pylsp']},
+        \ 'allowlist': ['python'],
+        \ })
+endif
+
+function! s:on_lsp_buffer_enabled() abort
+    setlocal omnifunc=lsp#complete
+    nmap <buffer> gd <plug>(lsp-definition)
+    nmap <buffer> gr <plug>(lsp-references)
+    nmap <buffer> K <plug>(lsp-hover)
+endfunction
+
+augroup lsp_install
+    autocmd!
+    autocmd User lsp_buffer_enabled call s:on_lsp_buffer_enabled()
+augroup END
+let g:lsp_use_native_client = 1
+
+" Group commenting
+"inoremap gcc <Esc>:normal gcc<CR>
+"vnoremap <silent> <expr> gcc ':<C-u>call CommentLinesVisual()<CR>'
+"function! CommentLinesVisual() abort
+"    let [line_start, line_end] = [line("'<"), line("'>")]
+"    execute line_start.','.line_end.'normal gcc'
+"    normal! gv
+"
+"
+"endfunction
