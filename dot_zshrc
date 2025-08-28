@@ -1,0 +1,123 @@
+# Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
+export PATH="$PATH:$HOME/.rvm/bin"
+
+# opam configuration
+[[ ! -r /Users/aghyaddeeb/.opam/opam-init/init.zsh ]] || source /Users/aghyaddeeb/.opam/opam-init/init.zsh  > /dev/null 2> /dev/null
+
+
+#virtulevnwrapper
+export WORKON_HOME=$HOME/.virtualenvs
+export VIRTUALENVWRAPPER_PYTHON=/Library/Frameworks/Python.framework/Versions/3.10/bin/python3
+source /Library/Frameworks/Python.framework/Versions/3.10/bin/virtualenvwrapper.sh
+alias get_idf='. $HOME/esp/esp-idf/export.sh'
+
+# >>> mamba initialize >>>
+# !! Contents within this block are managed by 'mamba init' !!
+export MAMBA_EXE="/Users/aghyaddeeb/.local/bin/micromamba";
+export MAMBA_ROOT_PREFIX="/Users/aghyaddeeb/micromamba";
+__mamba_setup="$('/Users/aghyaddeeb/.local/bin/micromamba' shell hook --shell zsh --prefix '/Users/aghyaddeeb/micromamba' 2> /dev/null)"
+if [ $? -eq 0 ]; then
+    eval "$__mamba_setup"
+else
+    if [ -f "/Users/aghyaddeeb/micromamba/etc/profile.d/micromamba.sh" ]; then
+        . "/Users/aghyaddeeb/micromamba/etc/profile.d/micromamba.sh"
+    else
+        export  PATH="/Users/aghyaddeeb/micromamba/bin:$PATH"  # extra space after export prevents interference from conda init
+    fi
+fi
+unset __mamba_setup
+# <<< mamba initialize <<<
+
+# >>> conda initialize >>>
+# !! Contents within this block are managed by 'conda init' !!
+__conda_setup="$('/Users/aghyaddeeb/miniconda3/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
+if [ $? -eq 0 ]; then
+    eval "$__conda_setup"
+else
+    if [ -f "/Users/aghyaddeeb/miniconda3/etc/profile.d/conda.sh" ]; then
+        . "/Users/aghyaddeeb/miniconda3/etc/profile.d/conda.sh"
+    else
+        export PATH="/Users/aghyaddeeb/miniconda3/bin:$PATH"
+    fi
+fi
+unset __conda_setup
+# <<< conda initialize <<<
+
+# adb initilize
+export PATH=$PATH:/Users/aghyaddeeb/documents/adb
+
+# Homebrew
+export PATH="/opt/homebrew/bing:$PATH"
+
+# Binaries for esp32s3
+export PATH="/Users/aghyaddeeb/.espressif/tools/xtensa-esp32s3-elf/esp-2021r2-patch5-8.4.0/xtensa-esp32s3-elf/bin:$PATH"
+
+# alias python=python3
+export PYENV_ROOT="$HOME/.pyenv"
+export PATH="$PYENV_ROOT/bin:$PATH"
+eval "$(pyenv init --path)"
+
+
+# xelatex
+export PATH="$PATH:/usr/local/texlive/2022basic/bin/universal-darwin"
+
+export PATH="$PATH:/Library/TeX/texbin/xelatex"
+
+# RubyGems
+export PATH="$HOME/.rbenv/bin:$PATH"
+eval "$(rbenv init -)"
+
+# Java
+export JAVA_HOME="/Library/java/JavaVirtualMachines/zulu-11.jdk/contents/Home"
+
+# Android SDK
+export ANDROID_HOME="/Users/aghyaddeeb/library/android/sdk"
+
+# Chatsh
+alias chatsh='node /Users/aghyaddeeb/documents/coding/chatsh/chatsh_mats/chatsh.mjs'
+alias mchatsh='node /Users/aghyaddeeb/documents/coding/chatsh/chatsh_mine/chatsh.mjs'
+
+# Vim config
+bindkey -v
+bindkey -M viins 'jk' vi-cmd-mode
+
+# Ubuntu style
+PROMPT="%n:%F{green}@%m:%F{yellow}%d%F{reset} $ " 
+
+# Make ls show dirs in different colors
+alias ls='ls -G'
+export CLICOLOR=1
+export LSCOLORS=gxFxCxDxBxegedabagaced
+
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+
+
+function bridge {
+    local host="$1";
+    local port="$2";
+    ssh -L $port:127.0.0.1:$port "$host"
+}
+
+# function to create and enter dir
+mkd() {mkdir -p "$@" && cd "$@"}
+
+# Rust
+export PATH="$PATH:$HOME/.cargo/bin"
+
+# tdf
+export PATH="$PATH:/Users/aghyaddeeb/Documents/Coding/tdf/target/release"
+
+. "$HOME/.local/bin/env"
+
+alias keepawake="sudo pmset -a disablesleep 1; sudo pmset -a sleep 0 displaysleep 0 disksleep 0"
+
+alias allowsleep="sudo pmset -a disablesleep 0; sudo pmset -b sleep 15 displaysleep 15 disksleep 15; sudo pmset -c sleep 30 displaysleep 30 disksleep 30"
+
+alias av="source venv/bin/activate"
+export CPLUS_INCLUDE_PATH=/opt/homebrew/include:$CPLUS_INCLUDE_PATH
+export LIBRARY_PATH=/opt/homebrew/lib:$LIBRARY_PATH
+export CPLUS_INCLUDE_PATH=/opt/homebrew/include:$CPLUS_INCLUDE_PATH
+export LIBRARY_PATH=/opt/homebrew/lib:$LIBRARY_PATH
+# TEST
