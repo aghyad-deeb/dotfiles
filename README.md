@@ -1,1 +1,2 @@
-`sh -c "$(curl -fsLS get.chezmoi.io)" -- init --apply {username}`
+```sh -c "$(curl -fsLS get.chezmoi.io)" -- init --apply {username}```
+
