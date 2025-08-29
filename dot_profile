@@ -1,0 +1,63 @@
+# ~/.profile: executed by the command interpreter for login shells.
+# This file is not read by bash(1), if ~/.bash_profile or ~/.bash_login
+# exists.
+# see /usr/share/doc/bash/examples/startup-files for examples.
+# the files are located in the bash-doc package.
+
+# the default umask is set in /etc/profile; for setting the umask
+# for ssh logins, install and configure the libpam-umask package.
+#umask 022
+
+# if running bash
+if [ -n "$BASH_VERSION" ]; then
+    # include .bashrc if it exists
+    if [ -f "$HOME/.bashrc" ]; then
+	. "$HOME/.bashrc"
+    fi
+fi
+
+# set PATH so it includes user's private bin if it exists
+if [ -d "$HOME/bin" ] ; then
+    PATH="$HOME/bin:$PATH"
+fi
+
+# set PATH so it includes user's private bin if it exists
+if [ -d "$HOME/.local/bin" ] ; then
+    PATH="$HOME/.local/bin:$PATH"
+fi
+
+export TMPDIR="$HOME/tmp"
+export TEMP=$TMPDIR
+export TMP=$TMPDIR
+mkdir -p "$TMPDIR" 
+chmod 777 /data2/Users/aghyad/tmp   # GCC sometimes needs world-write
+
+# tell every layer to use it
+export TMPDIR=/data2/Users/aghyad/tmp
+export TMP=$TMPDIR
+export TEMP=$TMPDIR
+export TEMPDIR=$TMPDIR              # some distros still honour this
+
+# give Triton / Torch-Inductor their own caches on the large disk too
+export TRITON_CACHE_DIR=/data2/Users/aghyad/.cache/triton
+export TORCHINDUCTOR_CACHE_DIR=/data2/Users/aghyad/.cache/torch_inductor
+export XDG_CACHE_HOME=/data2/Users/aghyad/.cache  
+
+if ! pgrep -u "$USER" ssh-agent >/dev/null; then
+  eval "$(ssh-agent -s)"
+fi
+ssh-add -q ~/.ssh/id_ed25519 2>/dev/null
+
+
+
+function av() {
+    if [ -z "$1" ]; then
+        source venv/bin/activate
+    else
+        source $1/venv/bin/activate
+    fi
+}
+
+cd ~/reward_seeker
+source venv/bin/activate
+
