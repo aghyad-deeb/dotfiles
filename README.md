@@ -2,9 +2,18 @@
 sh -c "$(curl -fsLS get.chezmoi.io)" -- init --apply aghyad-deeb
 ```
 
+```shell
+vim .config/chezmoi/chezmoi.toml
 ```
+
+```toml
 encryption = "age"
+
+[git]
+    autoCommit = true
+    autoPush = true
+
 [age]
     identity = "~/key.txt"
-    recipient = ...
+    recipient = "age1vj6r9tjp5k39mn4fhf55qja6gjncgljn6zjuw0656qlyzdh7ysks5ndefg"
 ```
