@@ -1,6 +1,6 @@
 
 ```shell
-vim ~/.config/chezmoi/chezmoi.toml
+mkdir ~/.config; mkdir ~/.config/chezmoi; vim ~/.config/chezmoi/chezmoi.toml
 ```
 
 
