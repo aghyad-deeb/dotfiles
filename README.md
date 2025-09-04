@@ -23,5 +23,5 @@ vim ~/key.txt
 
 
 ```shell
-sh -c "$(curl -fsLS get.chezmoi.io/lb)" -- init --apply aghyad-deeb
+sh -c "$(curl -fsLS get.chezmoi.io/lb)" -- init --apply git@github.com:aghyad-deeb/dotfiles.git
 ```
