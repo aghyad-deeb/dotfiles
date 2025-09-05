@@ -30,18 +30,7 @@ export TMPDIR="$HOME/tmp"
 export TEMP=$TMPDIR
 export TMP=$TMPDIR
 mkdir -p "$TMPDIR" 
-chmod 777 /data2/Users/aghyad/tmp   # GCC sometimes needs world-write
-
-# tell every layer to use it
-export TMPDIR=/data2/Users/aghyad/tmp
-export TMP=$TMPDIR
-export TEMP=$TMPDIR
-export TEMPDIR=$TMPDIR              # some distros still honour this
-
-# give Triton / Torch-Inductor their own caches on the large disk too
-export TRITON_CACHE_DIR=/data2/Users/aghyad/.cache/triton
-export TORCHINDUCTOR_CACHE_DIR=/data2/Users/aghyad/.cache/torch_inductor
-export XDG_CACHE_HOME=/data2/Users/aghyad/.cache  
+chmod 777 "$HOME/tmp"
 
 if ! pgrep -u "$USER" ssh-agent >/dev/null; then
   eval "$(ssh-agent -s)"
