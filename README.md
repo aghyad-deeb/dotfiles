@@ -1,19 +1,17 @@
 
 ```shell
-mkdir ~/.config; mkdir ~/.config/chezmoi; vim ~/.config/chezmoi/chezmoi.toml
-```
-
-
-```toml
+mkdir -p /root/.config/chezmoi && \
+    cat <<EOF > /root/.config/chezmoi/chezmoi.toml
 encryption = "age"
 
 [git]
-    autoCommit = true
-    autoPush = true
+autoCommit = true
+autoPush = true
 
 [age]
-    identity = "~/key.txt"
-    recipient = "age1vj6r9tjp5k39mn4fhf55qja6gjncgljn6zjuw0656qlyzdh7ysks5ndefg"
+identity = "/root/key.txt"
+recipient = "age1vj6r9tjp5k39m4fhf55qja6gjncgljn6zjuw0656qlyzdh7ysks5ndefg"
+EOF
 ```
 
 
