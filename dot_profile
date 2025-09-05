@@ -47,6 +47,6 @@ function av() {
     fi
 }
 
-cd ~/reward_seeker
+cd /workspace/reward_seeker
 source venv/bin/activate
 
