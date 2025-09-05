@@ -25,5 +25,5 @@ sh -c "$(curl -fsLS get.chezmoi.io/lb)" -- init --apply aghyad-deeb
 ```
 
 ```shell
-rm -rf ~/.local/share/chezmoi; sh -c "$(curl -fsLS get.chezmoi.io/lb)" -- init --apply git@github.com:aghyad-deeb/dotfiles.git
+chmod 600 ~/.ssh/config; rm -rf ~/.local/share/chezmoi; sh -c "$(curl -fsLS get.chezmoi.io/lb)" -- init --apply git@github.com:aghyad-deeb/dotfiles.git
 ```
