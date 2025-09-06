@@ -50,3 +50,5 @@ function av() {
 cd /workspace/reward_seeker
 source venv/bin/activate
 
+
+. "$HOME/.local/bin/env"
