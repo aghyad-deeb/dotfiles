@@ -137,6 +137,4 @@ function scvd() {
 	CUDA_VISIBLE_DEVICES=$1
 }
 
-
-cd ~/reward_seeker
-av
+export WD="/workspace/"
