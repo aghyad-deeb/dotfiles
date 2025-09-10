@@ -138,3 +138,9 @@ function scvd() {
 }
 
 export WD="/workspace/"
+
+. "$HOME/.local/bin/env"
+
+function mkd() {
+    mkdir $1; cd $1
+}
