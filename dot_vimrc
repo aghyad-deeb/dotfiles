@@ -67,3 +67,14 @@ let g:lsp_use_native_client = 1
 "
 "
 "endfunction
+
+nmap <leader>c  <Plug>OSCYankOperator
+nmap <leader>cc <leader>c_
+vmap <leader>c  <Plug>OSCYankVisual
+
+" Make yank automatically copy to system clipboard via OSC52
+augroup VimOSC52Yank
+  autocmd!
+  autocmd TextYankPost * if v:event.operator ==# 'y' && v:event.regname ==# '' | call OSCYankRegister('"') | endif
+augroup END
+
