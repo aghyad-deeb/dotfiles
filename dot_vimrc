@@ -78,3 +78,8 @@ augroup VimOSC52Yank
   autocmd TextYankPost * if v:event.operator ==# 'y' && v:event.regname ==# '' | call OSCYankRegister('"') | endif
 augroup END
 
+if &term =~ 'screen\|tmux'
+    set notermguicolors
+    set t_Co=256
+endif
+
