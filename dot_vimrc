@@ -25,12 +25,19 @@ set termguicolors
 set number
 set colorcolumn=80
 filetype plugin indent on
-let theme = system('defaults read -g AppleInterfaceStyle')
-if theme =~ 'Dark'
-    colorscheme catppuccin_mocha
-else
-    colorscheme catppuccin_latte
-endif
+" === Time-based colorscheme switching ===
+function! SetTimeBasedTheme()
+  let l:hour = strftime("%H")
+  if l:hour >= 18 || l:hour < 6
+    colorscheme catppuccin_mocha  " dark mode
+  else
+    colorscheme catppuccin_latte  " light mode
+  endif
+endfunction
+
+" Run it on startup
+autocmd VimEnter * call SetTimeBasedTheme()
+
 
 " lsp
 
