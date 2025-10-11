@@ -149,3 +149,6 @@ export GLOO_SOCKET_IFNAME=ibp26s0,ibp60s0,ibp77s0,ibp94s0,ibp156s0,ibp188s0,ibp2
 export NCCL_IB_HCA=mlx5_0,mlx5_10,mlx5_11mlx5_3,mlx5_4,mlx5_5,mlx5_6,mlx5_9
 export NCCL_SOCKET_IFNAME=ibp26s0,ibp60s0,ibp77s0,ibp94s0,ibp156s0,ibp188s0,ibp204s0,ibp220s0
 export NCCL_IB_DISABLE=0
+
+ulimit -n 4096
+
