@@ -137,6 +137,14 @@ function scvd() {
 	CUDA_VISIBLE_DEVICES=$1
 }
 
+export WD="/workspace/"
 
-cd ~/reward_seeker
-av
+. "$HOME/.local/bin/env"
+
+function mkd() {
+    mkdir $1; cd $1
+}
+export PATH=/usr/local/cuda-12.6/bin:$PATH
+
+ulimit -n 4096
+

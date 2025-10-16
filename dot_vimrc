@@ -25,12 +25,19 @@ set termguicolors
 set number
 set colorcolumn=80
 filetype plugin indent on
-let theme = system('defaults read -g AppleInterfaceStyle')
-if theme =~ 'Dark'
-    colorscheme catppuccin_mocha
-else
-    colorscheme catppuccin_latte
-endif
+" === Time-based colorscheme switching ===
+function! SetTimeBasedTheme()
+  let l:hour = strftime("%H")
+  if l:hour >= 18 || l:hour < 6
+    colorscheme catppuccin_mocha  " dark mode
+  else
+    colorscheme catppuccin_latte  " light mode
+  endif
+endfunction
+
+" Run it on startup
+autocmd VimEnter * call SetTimeBasedTheme()
+
 
 " lsp
 
@@ -71,3 +78,19 @@ let g:lsp_use_native_client = 1
 
 " Syntax highlighting for logs
 au BufNewFile,BufRead *.log set filetype=log
+
+nmap <leader>c  <Plug>OSCYankOperator
+nmap <leader>cc <leader>c_
+vmap <leader>c  <Plug>OSCYankVisual
+
+" Make yank automatically copy to system clipboard via OSC52
+augroup VimOSC52Yank
+  autocmd!
+  autocmd TextYankPost * if v:event.operator ==# 'y' && v:event.regname ==# '' | call OSCYankRegister('"') | endif
+augroup END
+
+if &term =~ 'screen\|tmux'
+    set notermguicolors
+    set t_Co=256
+endif
+
