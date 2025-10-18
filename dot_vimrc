@@ -68,6 +68,3 @@ let g:lsp_use_native_client = 1
 "
 "endfunction
 "
-
-" Syntax highlighting for logs
-au BufNewFile,BufRead *.log set filetype=log
