@@ -153,3 +153,6 @@ export PATH=/usr/local/cuda-12.6/bin:$PATH
 ulimit -n 4096
 
 
+
+# tmux attach shortcut
+ta() { tmux attach -t "$1"; }
