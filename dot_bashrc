@@ -131,6 +131,10 @@ function av() {
 	fi
 }
 
+function raylog() {
+    vim ~/tmp/ray/session_latest/logs/job-driver-$1.log
+}
+
 export TMPDIR="$HOME/tmp"
 
 function scvd() {
@@ -148,3 +152,7 @@ export PATH=/usr/local/cuda-12.6/bin:$PATH
 
 ulimit -n 4096
 
+
+
+# tmux attach shortcut
+ta() { tmux attach -t "$1"; }
