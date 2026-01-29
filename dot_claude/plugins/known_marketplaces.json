@@ -1,0 +1,18 @@
+{
+  "claude-plugins-official": {
+    "source": {
+      "source": "github",
+      "repo": "anthropics/claude-plugins-official"
+    },
+    "installLocation": "/Users/aghyaddeeb/.claude/plugins/marketplaces/claude-plugins-official",
+    "lastUpdated": "2026-01-29T18:11:38.254Z"
+  },
+  "anthropic-agent-skills": {
+    "source": {
+      "source": "github",
+      "repo": "anthropics/skills"
+    },
+    "installLocation": "/Users/aghyaddeeb/.claude/plugins/marketplaces/anthropic-agent-skills",
+    "lastUpdated": "2026-01-15T02:23:14.915Z"
+  }
+}
