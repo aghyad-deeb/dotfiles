@@ -1,7 +1,0 @@
-0000000000000000000000000000000000000000 dbadca997fdfc4e8b4c943c91a258f1d9df0996a aptl26-2024 <th3elctronicag@gmail.com> 1768445550 -0800	commit (initial): Add multinode-setup skill for GPU rental machine configuration
-dbadca997fdfc4e8b4c943c91a258f1d9df0996a 0000000000000000000000000000000000000000 aptl26-2024 <th3elctronicag@gmail.com> 1768445558 -0800	Branch: renamed refs/heads/master to refs/heads/main
-0000000000000000000000000000000000000000 dbadca997fdfc4e8b4c943c91a258f1d9df0996a aptl26-2024 <th3elctronicag@gmail.com> 1768445558 -0800	Branch: renamed refs/heads/master to refs/heads/main
-dbadca997fdfc4e8b4c943c91a258f1d9df0996a a609dacd26f8c2280af31f5067b9dd9964bde866 aptl26-2024 <th3elctronicag@gmail.com> 1768449400 -0800	commit: Clarify that existing rentalX entries should be overridden
-a609dacd26f8c2280af31f5067b9dd9964bde866 bf8e5a76073b8a41ab5ab8993faff27fb99da1aa aptl26-2024 <th3elctronicag@gmail.com> 1768449514 -0800	commit: Move SSH config update to last step (requires approval)
-bf8e5a76073b8a41ab5ab8993faff27fb99da1aa 3cd826a3e9dea64e02e09aaa993a95859dbfa5d7 aptl26-2024 <th3elctronicag@gmail.com> 1768498605 -0800	commit: Add setup_cluster.sh script for single-command cluster setup
-3cd826a3e9dea64e02e09aaa993a95859dbfa5d7 25ebaa5459fed7b7ba636f7a327e3607b9d9f3f3 aptl26-2024 <th3elctronicag@gmail.com> 1768498855 -0800	commit: Add launch_setup.sh to invoke Claude Code with node mapping
