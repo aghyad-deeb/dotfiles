@@ -136,12 +136,115 @@ Or if already on head node:
 tmux attach -t multinode
 ```
 
-## Post-Setup Notification
+## Post-Setup Verification (REQUIRED)
 
-After setup completes, send a notification to alert the user:
+After setup completes, **always run comprehensive verification** on all nodes. Run this verification script on each node:
 
 ```bash
-~/.claude/skills/notify/scripts/notify.sh "Cluster Ready" "N node(s) setup complete"
+# Run on each node (rental0, rental1, etc.)
+ssh rentalN 'bash -s' << 'VERIFY'
+echo "=== Verification for $(hostname) ==="
+
+# 1. Directory Structure
+echo "--- Directories ---"
+[ -d /workspace/reward_seeker ] && echo "✓ workspace" || echo "✗ workspace"
+[ -d /workspace/reward_seeker/.git ] && echo "✓ git repo" || echo "✗ git repo"
+[ -d /workspace/reward_seeker/venv ] && echo "✓ venv" || echo "✗ venv"
+
+# 2. Credentials
+echo "--- Credentials ---"
+[ -f ~/.env ] && [ "$(stat -c %a ~/.env)" = "600" ] && echo "✓ .env" || echo "✗ .env"
+grep -q "ANTHROPIC_API_KEY" ~/.env 2>/dev/null && echo "✓ ANTHROPIC_API_KEY" || echo "✗ ANTHROPIC_API_KEY"
+
+# 3. Chezmoi & Age Encryption (CRITICAL)
+echo "--- Chezmoi & Age ---"
+command -v chezmoi >/dev/null && echo "✓ chezmoi" || echo "✗ chezmoi"
+command -v age >/dev/null && echo "✓ age" || echo "✗ age"
+[ -f ~/key.txt ] && [ "$(stat -c %a ~/key.txt)" = "600" ] && echo "✓ key.txt" || echo "✗ key.txt"
+[ -f ~/.config/chezmoi/chezmoi.toml ] && echo "✓ chezmoi.toml" || echo "✗ chezmoi.toml"
+
+# CRITICAL: Verify age key matches chezmoi recipient
+KEY_PUBLIC=$(grep "# public key:" ~/key.txt 2>/dev/null | awk '{print $4}')
+TOML_RECIPIENT=$(grep "recipient" ~/.config/chezmoi/chezmoi.toml 2>/dev/null | cut -d'"' -f2)
+if [ "$KEY_PUBLIC" = "$TOML_RECIPIENT" ]; then
+    echo "✓ age key matches recipient"
+else
+    echo "✗ KEY MISMATCH: key=$KEY_PUBLIC recipient=$TOML_RECIPIENT"
+fi
+
+# CRITICAL: Test decryption actually works
+if [ -d ~/.local/share/chezmoi ]; then
+    TEST_FILE=$(find ~/.local/share/chezmoi -name "*.age" -type f 2>/dev/null | head -1)
+    if [ -n "$TEST_FILE" ]; then
+        age -d -i ~/key.txt "$TEST_FILE" >/dev/null 2>&1 && echo "✓ age decryption works" || echo "✗ DECRYPTION FAILED"
+    fi
+fi
+
+# 4. Dotfiles
+echo "--- Dotfiles ---"
+[ -f ~/.bashrc ] && echo "✓ .bashrc" || echo "✗ .bashrc"
+[ -f ~/.tmux.conf ] && echo "✓ .tmux.conf" || echo "✗ .tmux.conf"
+[ -f ~/.vimrc ] && echo "✓ .vimrc" || echo "✗ .vimrc"
+[ -d ~/.vim ] && echo "✓ .vim/" || echo "✗ .vim/"
+
+# 5. SSH Keys
+echo "--- SSH ---"
+[ -f ~/.ssh/id_ed25519 ] && [ "$(stat -c %a ~/.ssh/id_ed25519)" = "600" ] && echo "✓ id_ed25519" || echo "✗ id_ed25519"
+[ -f ~/.ssh/config ] && echo "✓ ssh config" || echo "✗ ssh config"
+
+# 6. Git
+echo "--- Git ---"
+[ "$(git config --global user.email)" = "th3elctronicag@gmail.com" ] && echo "✓ git email" || echo "✗ git email"
+
+# 7. Python/UV
+echo "--- Python/UV ---"
+[ -f ~/.local/bin/uv ] && echo "✓ uv" || echo "✗ uv"
+[ -f /workspace/reward_seeker/venv/bin/python ] && echo "✓ venv python" || echo "✗ venv python"
+
+# 8. External Auth
+echo "--- External Auth ---"
+[ -f ~/.netrc ] && grep -q "api.wandb.ai" ~/.netrc && echo "✓ wandb" || echo "✗ wandb"
+[ -f ~/.cache/huggingface/token ] && echo "✓ huggingface" || echo "✗ huggingface"
+
+# 9. Docker
+echo "--- Docker ---"
+command -v docker >/dev/null && echo "✓ docker installed" || echo "✗ docker"
+groups | grep -q docker && echo "✓ in docker group" || echo "✗ not in docker group"
+
+# 10. Networking (multi-node)
+echo "--- Networking ---"
+! grep -q "127.0.1.1" /etc/hosts && echo "✓ /etc/hosts fixed" || echo "✗ /etc/hosts has 127.0.1.1"
+grep -q "NCCL_IB_HCA" ~/.bashrc && echo "✓ NCCL vars" || echo "✗ NCCL vars missing"
+
+# 11. Services
+echo "--- Services ---"
+tmux has-session -t exec 2>/dev/null && echo "✓ exec session" || echo "✗ exec session"
+tmux has-session -t ray 2>/dev/null && echo "✓ ray session" || echo "✗ ray session"
+
+# 12. Claude Code
+echo "--- Claude Code ---"
+(command -v claude >/dev/null || [ -f ~/.local/bin/claude ]) && echo "✓ claude installed" || echo "✗ claude"
+
+echo "=== Done ==="
+VERIFY
+```
+
+Run verification in parallel on all nodes:
+```bash
+for i in $(seq 0 $((NUM_NODES-1))); do
+    ssh rental$i 'bash -s' < verify.sh &
+done
+wait
+```
+
+**If any check fails, fix it before considering setup complete.**
+
+## Post-Setup Notification
+
+After setup AND verification complete, send a notification:
+
+```bash
+~/.claude/skills/notify/scripts/notify.sh "Cluster Ready" "N node(s) setup and verified"
 ```
 
 Replace N with the actual number of nodes configured.
