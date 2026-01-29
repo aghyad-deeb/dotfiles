@@ -55,6 +55,22 @@ command -v age && echo "✓ age" || echo "✗ age"
 # Chezmoi config
 [ -f ~/.config/chezmoi/chezmoi.toml ] && echo "✓ chezmoi.toml" || echo "✗ chezmoi.toml"
 
+# CRITICAL: Verify age key matches chezmoi recipient
+# The public key derived from key.txt MUST match the recipient in chezmoi.toml
+KEY_PUBLIC=$(grep "# public key:" ~/key.txt 2>/dev/null | awk '{print $4}')
+TOML_RECIPIENT=$(grep "recipient" ~/.config/chezmoi/chezmoi.toml 2>/dev/null | cut -d'"' -f2)
+[ "$KEY_PUBLIC" = "$TOML_RECIPIENT" ] && echo "✓ age key matches recipient" || echo "✗ KEY MISMATCH: key=$KEY_PUBLIC recipient=$TOML_RECIPIENT"
+
+# CRITICAL: Test that encrypted files can actually be decrypted
+if [ -d ~/.local/share/chezmoi ]; then
+    TEST_FILE=$(find ~/.local/share/chezmoi -name "*.age" -type f | head -1)
+    if [ -n "$TEST_FILE" ]; then
+        age -d -i ~/key.txt "$TEST_FILE" >/dev/null 2>&1 && echo "✓ age decryption works" || echo "✗ DECRYPTION FAILED - wrong key!"
+    else
+        echo "- no encrypted files to test"
+    fi
+fi
+
 # Dotfiles present
 [ -f ~/.bashrc ] && echo "✓ .bashrc" || echo "✗ .bashrc"
 [ -f ~/.profile ] && echo "✓ .profile" || echo "✗ .profile"
